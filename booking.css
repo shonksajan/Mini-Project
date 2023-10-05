@@ -1,0 +1,76 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    width:max-content;
+  }
+  body {
+    background-color: #f5f5f5; /* Light gray background */
+    color: #333; /* Dark gray text */
+  }
+  form {
+    margin: 20px;
+    padding: 20px;
+    background-color: #fff; /* White background for form */
+    /* border: 1px solid #ddd; Add a subtle border */
+  }
+  label {
+    font-weight: bold;
+  }
+  
+  input, select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+  button[type="submit"] {
+    background-color: #007bff; /* Blue button */
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+  }
+  input[type="checkbox"] {
+    margin-right: 5px;
+  }
+/* Example: Add spacing between form sections */
+.form-section {
+  margin-bottom: 20px;
+  padding-left: 100px;
+}
+/* Example: Add spacing between form sections */
+.form-section {
+    margin-bottom: 20px;
+    
+  }
+  /* Center the form container horizontally and vertically */
+/* CSS to create a two-column layout */
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.booking-form {
+  flex: 1;
+  padding: 70px;
+  background-color: #fff; /* Adjust background color as needed */
+  /* border: 1px solid #ddd; */
+  border-radius: 4px;
+  margin-right: 10px; /* Add space between the columns */
+}
+.poster {
+    flex: 1;
+    size: 20px 20px;
+    /* Add styling for the poster or image, e.g., background-image, padding, etc. */
+  }
+
+              
