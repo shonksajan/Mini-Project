@@ -1,0 +1,15 @@
+.root{
+    padding: 0px;
+    margin: 0px;
+}
+.main-head h1{
+color: azure;
+
+margin: 40px 0 0 30px;
+/* padding-top: 100px; */
+font: small-caps bold 24px/1 sans-serif;
+font-weight: 700;
+font-size: 30px;
+top: 10px;
+position: fixed;
+}

@@ -1,0 +1,91 @@
+/* registerform.css */
+*{
+  margin: 0;
+}
+.regform-ctn {
+  background-image: url('/images/7.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  font-family: Arial, Helvetica, sans-serif; /* You can adjust the font-family as needed */
+  margin: 0;
+  padding: 0;
+  
+}
+.regform {
+ position: relative;
+ top: 10px;
+ left: 100px;
+  margin-left: 900px;
+  max-width: 600px;
+  max-height: auto;
+  margin: 0 auto;
+  
+  background-color: rgba(255, 255, 255, 0.5); /* Adjust the opacity value (last parameter) to make it more or less transparent */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); /* Adding a subtle shadow to the form */
+
+}
+
+/* h1 {
+  text-align: center;
+  margin-bottom: 20px;
+} */
+
+/* Section headers */
+h3 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+/* Form sections */
+.divider {
+  border-top: 1px solid #ccc;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+/* Input field styling */
+label {
+  font-weight: bold;
+}
+
+input[type="text"],
+input[type="tel"],
+input[type="number"],
+input[type="email"],
+input[type="password"],
+input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* File input styling */
+.file-input {
+  display: block;
+  margin-top: 5px;
+}
+
+/* Submit button styling */
+button[type="submit"] {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+.required{
+  color: red;
+}
