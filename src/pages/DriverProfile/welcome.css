@@ -1,0 +1,89 @@
+
+.p-info {
+  padding: 50px 100px;
+  width: 50%;
+  height: 100vh;
+
+  background-color: white;
+  border: 1px solid #dfdfdf;
+}
+
+.main {
+  background-color: #f9fafb;
+  display: flex;
+}
+
+.insurance h6 {
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.insurance {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0 0;
+
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #dfdfdf;
+}
+
+.card {
+  width: 650px;
+  margin: 140px 50px 0;
+  padding: 20px;
+}
+
+.dr {
+  font-weight: 600;
+  color: #007aff;
+}
+
+.acc-details {
+  margin: 20px 0 0;
+}
+.car-details,
+.acc-details {
+  border: 1px solid #dfdfdf;
+  width: 550px;
+  border-radius: 10px;
+}
+
+.head-flex {
+  padding: 10px;
+  border-bottom: 1px solid #dfdfdf;
+}
+
+.v-info {
+  font-size: 15px;
+}
+
+.head-flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.flex {
+  display: flex;
+  gap: 100px;
+
+  padding: 20px;
+}
+
+.car-details .titles p {
+  margin: 0 0 12px;
+  color: rgb(72, 72, 72);
+  font-weight: 400;
+}
+
+.car-details .c-data p,
+.acc-details p {
+  margin: 0 0 12px;
+}
+
+.verified {
+  width: auto;
+  height: 20px;
+}

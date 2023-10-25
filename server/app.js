@@ -1,78 +1,13 @@
-// const express = require('express');
-// const db = require('./config/db')
-// const cors = require('cors')
 
-// const app = express();
-// const  PORT = 3002;
-// app.use(cors());
-// app.use(express.json())
-
-// // Route to get all posts
-// app.get("/api/get", (req,res)=>{
-// db.query("SELECT * FROM posts", (err,result)=>{
-//     if(err) {
-//     console.log(err)
-//     } 
-// res.send(result)
-// });   });
-
-// // Route to get one post
-// app.get("/api/getFromId/:id", (req,res)=>{
-
-// const id = req.params.id;
-//  db.query("SELECT * FROM posts WHERE id = ?", id, 
-//  (err,result)=>{
-//     if(err) {
-//     console.log(err)
-//     } 
-//     res.send(result)
-//     });   });
-
-
-// // Route for creating the post
-// app.post('/api/create', (req,res)=> {
-
-// const username = req.body.userName;
-// const title = req.body.title;
-// const text = req.body.text;
-
-// db.query("INSERT INTO posts (title, post_text, user_name) VALUES (?,?,?)",[title,text,username], (err,result)=>{
-//    if(err) {
-//    console.log(err)
-//    } 
-//    console.log(result)
-// });   })
-
-// // Route to like a post
-// app.post('/api/like/:id',(req,res)=>{
-
-// const id = req.params.id;
-// db.query("UPDATE posts SET likes = likes + 1 WHERE id = ?",id, (err,result)=>{
-//     if(err) {
-//    console.log(err)   } 
-//    console.log(result)
-//     });    
-// });
-
-// // Route to delete a post
-
-// app.delete('/api/delete/:id',(req,res)=>{
-// const id = req.params.id;
-
-// db.query("DELETE FROM posts WHERE id= ?", id, (err,result)=>{
-// if(err) {
-// console.log(err)
-//         } }) })
-
-// app.listen(PORT, ()=>{
-//     console.log(`Server is running on ${PORT}`)
-// })
 
 const express = require("express");
 const multer = require("multer");
 const mysql = require("mysql2/promise");
+const mysql2 = require("mysql2");
+
 const path = require("path");
 const cors = require("cors");
+const bcrypt = require("bcrypt")
 const fs = require("fs");
 const app = express();
 const port = process.env.PORT || 5000;
@@ -80,6 +15,11 @@ app.use(cors());
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
+
+
+const bodyParser = require('body-parser');
+// ...
+app.use(bodyParser.json());
 
 // Create a MySQL connection pool
 const pool = mysql.createPool({
@@ -90,25 +30,80 @@ const pool = mysql.createPool({
   database: "car_rent",
 });
 
+const db = mysql2.createConnection({
+  host: "localhost",
+  port: "8080",
+  user: "root",
+  password: "ayana",
+  database: "car_rent",
+});
+
 app.use(express.json());
 
-app.post("/upload", upload.single("pdf"), (req, res) => {
-  const { originalname, buffer } = req.file;
-  //   const pdfData = buffer.toString("base64");
+// app.post("/upload", upload.single("pdf"), (req, res) => {
+//   const { originalname, buffer } = req.file;
+  
 
-  const sql = "INSERT INTO pdfs (name, data) VALUES (?, ?)";
-  const values = [originalname, buffer];
+//   const sql = "INSERT INTO pdfs (name, data) VALUES (?, ?)";
+//   const values = [originalname, buffer];
 
-  pool.query(sql, values, (err, result) => {
-    if (err) {
-      console.error("Error uploading PDF:", err);
-      res.status(500).json({ error: "Error uploading PDF" });
-    } else {
-      console.log("PDF uploaded successfully");
-      res.status(200).json({ message: "PDF uploaded successfully" });
-    }
-  });
+//   pool.query(sql, values, (err, result) => {
+//     if (err) {
+//       console.error("Error uploading PDF:", err);
+//       res.status(500).json({ error: "Error uploading PDF" });
+//     } else {
+//       console.log("PDF uploaded successfully");
+//       res.status(200).json({ message: "PDF uploaded successfully" });
+//     }
+//   });
+// });
+
+db.connect((err) => {
+  if (err) {
+    console.error('Database connection failed: ' + err.stack);
+    return;
+  }
+  console.log('Connected to the database');
 });
+
+app.post('/login', async (req, res) => {
+
+
+  const { email, password } = req.body;
+  console.log(email,password)
+  // try {
+  //   // Use the pool to acquire a connection
+  //   const connection = await pool.getConnection();
+
+  //   // Query the database to find a user with the provided email and password
+  //   const [results] = await connection.query(
+  //     'SELECT * FROM users WHERE email = ? AND password = ?',
+  //     [email, password]
+  //   );
+
+  //   connection.release(); // Release the connection back to the pool
+
+  //   if (results.length > 0) {
+  //     // Return the user's record
+  //     res.json(results[0]);
+  //   } else {
+  //     // If no matching user is found, return an error
+  //     res.status(404).json({ error: 'User not found' });
+  //   }
+  // } catch (error) {
+  //   res.status(500).json({ error: 'Database error' });
+  // }
+});
+
+
+
+
+
+
+
+
+
+
 app.post(
   "/register",
   upload.fields([
@@ -123,6 +118,7 @@ app.post(
       phone,
       address,
       email,
+      password,
       carName,
       carModel,
       seats,
@@ -133,22 +129,22 @@ app.post(
       ifscCode,
     } = req.body;
 
-    // Validate user data here if needed
+  
 
     const insuranceFile = req.files["insurance"][0];
     const pollutionCertificateFile = req.files["pollutionCertificate"][0];
     const drivingLicenseFile = req.files["drivingLicense"][0];
 
-    // Check if all required files were uploaded
+    
     if (!insuranceFile || !pollutionCertificateFile || !drivingLicenseFile) {
       return res.status(400).json({ error: "All document files are required" });
     }
 
     try {
-      // Insert user data into the "users" table
+     
       const userInsertSql = `
-        INSERT INTO users (firstName, lastName, phone, address, email, carName, carModel, seats, licensePlate, chassisNumber, accountNumber, accountName, ifscCode)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        INSERT INTO users (firstName, lastName, phone, address, email, password, carName, carModel, seats, licensePlate, chassisNumber, accountNumber, accountName, ifscCode)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)
       `;
       const userInsertValues = [
         firstName,
@@ -156,6 +152,7 @@ app.post(
         phone,
         address,
         email,
+        password,
         carName,
         carModel,
         seats,
@@ -166,7 +163,7 @@ app.post(
         ifscCode,
       ];
 
-      // Get the ID of the last inserted user (assuming you have an auto-incrementing primary key)
+      
       const userInsertResult = await pool.query(
         userInsertSql,
         userInsertValues
@@ -175,28 +172,27 @@ app.post(
       console.log(userInsertResult[0].insertId);
 
       if (!userInsertResult || !userInsertResult[0].insertId) {
-        // Handle the case where the insertId is not available
+       
         console.error("User insert failed");
         return res.status(500).json({ error: "User insert failed" });
       }
 
-      // Get the ID of the last inserted user (assuming you have an auto-incrementing primary key)
-      const userId = userInsertResult[0].insertId; // This is the user_id you need
-
+      
+      const userId = userInsertResult[0].insertId; 
       console.log(userId);
-      // Insert document data into the "documents" table
+
       const documentInsertSql = `
         INSERT INTO documents (user_id, insurance, pollution_certificate, driving_license)
         VALUES (?, ?, ?, ?)
       `;
       const documentInsertValues = [
-        userId, // Set the user_id correctly
-        insuranceFile.buffer, // You can store this binary data in the database
+        userId, 
+        insuranceFile.buffer, 
         pollutionCertificateFile.buffer,
         drivingLicenseFile.buffer,
       ];
 
-      // Execute the document INSERT query
+      
       await pool.query(documentInsertSql, documentInsertValues);
 
       console.log("User registered successfully");
@@ -208,6 +204,19 @@ app.post(
   }
 );
 
+
+// app.post('/login', async (req, res) => {
+//   const { email, password } = req.body;
+
+//   if (!email || !password) {
+//     return res.status(400).json({ message: 'Email and password are required' });
+//   }
+
+//   console.log(email,password);
+
+  
+  
+// });
 // Add this route to your Express server
 // app.get("/pdf/:pdfId", (req, res) => {
 //   const pdfId = req.params.pdfId;
@@ -268,13 +277,13 @@ app.get("/viewpdf/:id", async (req, res) => {
       return res.status(500).json({ error: "Invalid PDF data" });
     }
 
-    // Save the PDF to a temporary file
+    
     const tempFilePath = `uploads/${name}`;
     fs.writeFileSync(tempFilePath, data);
 
-    // Send the PDF file as an attachment
+   
     res.download(tempFilePath, name, (err) => {
-      // Cleanup: Delete the temporary file after it's sent
+      
       fs.unlinkSync(tempFilePath);
       if (err) {
         console.error("Error sending PDF:", err);
@@ -287,10 +296,65 @@ app.get("/viewpdf/:id", async (req, res) => {
   }
 });
 
-app.get("/api/get", (req, res) => {
-  console.log("test");
-  res.send("test");
+
+function isAuthenticated(req, res, next) {
+  // Check if the user is authenticated (e.g., by checking a session or token)
+  if (req.isAuthenticated()) {
+    return next(); // User is authenticated, continue to the next middleware or route handler
+  } else {
+    return res.status(401).json({ message: 'Unauthorized' });
+  }
+}
+
+// Middleware function to check if the user has admin privileges
+function isAdmin(req, res, next) {
+  // Check if the user has admin privileges (you can define your own logic here)
+  if (req.user && req.user.isAdmin) {
+    return next(); // User is an admin, continue to the next middleware or route handler
+  } else {
+    return res.status(403).json({ message: 'Forbidden - Admin access required' });
+  }
+}
+
+// Example route that requires authentication
+app.get('/secure-route', isAuthenticated, (req, res) => {
+  res.json({ message: 'This is a secure route' });
 });
+
+// Example route that requires both authentication and admin privileges
+app.get('/admin-route', isAuthenticated, isAdmin, (req, res) => {
+  res.json({ message: 'This is an admin-only route' });
+});
+
+
+app.post("/api/get", async (req, res) => {
+  const { username, password } = req.body;
+  console.log(username,password);
+  try {
+    // Use the pool to acquire a connection
+    const connection = await pool.getConnection();
+
+    // Query the database to fetch data from the "users" table
+    const [rows, fields] = await connection.execute(
+      'SELECT * FROM users where email = ? and password = ?',
+      [username, password]
+    );
+
+    connection.release(); // Release the connection back to the pool
+
+    if (rows.length > 0) {
+      // If matching user(s) found, send the fetched data as a JSON response
+      res.json(rows);
+    } else {
+      // If no matching user is found, return an error response
+      res.status(404).json({ error: 'User not found' });
+    }
+  } catch (error) {
+    console.error('An error occurred:', error);
+    res.status(500).json({ error: 'Database error' });
+  }
+});
+
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

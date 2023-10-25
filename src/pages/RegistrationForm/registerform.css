@@ -2,8 +2,24 @@
 *{
   margin: 0;
 }
+.main-head{
+  color: black;
+  
+      
+      
+      /* margin: 40px 0 0 30px; */
+      /* padding-top: 100px; */
+      font: small-caps bold 24px/1 sans-serif;
+      font-weight: 700;
+      font-size: 30px;
+      text-align: center;
+      /* margin-left: 200px; */
+      /* top: 10px; */
+      /* position: fixed; */
+      }
 .regform-ctn {
-  background-image: url('/images/7.png');
+  /* background-image: url('/images/7.png'); */
+  /* background-color: rgb(105, 110, 119); */
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -74,7 +90,7 @@ input[type="file"] {
 
 /* Submit button styling */
 button[type="submit"] {
-  background-color: #007bff;
+  background-color: #0c3a6c;
   color: #fff;
   border: none;
   padding: 10px 20px;
