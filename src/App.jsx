@@ -27,9 +27,7 @@ function App() {
       
       <Route path="/register" element={<Register/>}/>
       <Route path="/login" element ={<Login/>}/>
-      <Route path="/booking" element ={<Booking/>}/>
-      <Route path="/bookinghist" element ={<BookingHist/>}/>
-      <Route path="/rate" element ={<Rating/>}/>
+      
       <Route path="/driverprofile" element={<DriverProfile/>}/>
       <Route path="/taxicars" element={<CarList/>}/>
       <Route path="/driver" element={<DriverDashboard/>}/>

@@ -7,7 +7,7 @@ function DriverDashboard() {
   return (
     <div className='d-flex'>
         <Booking/>
-        <div>       
+        <div className='section-2'>       
         <BookingHist/>
         <Rating/>
         </div>
