@@ -16,6 +16,8 @@ const App = () => {
       if (response.status === 200) {
         // Request was successful
         const data = response.data;
+        console.log(data[0].id);
+        localStorage.setItem('userid',data[0].id);
         nav("/driver")
       }else if (response.status === 404) {
         // Request was successful

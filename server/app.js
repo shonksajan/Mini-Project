@@ -205,6 +205,112 @@ app.post(
 );
 
 
+app.get('/api/driver/:id', (req, res) => {
+  const id = req.params['id'];
+  const sql = "SELECT * FROM users WHERE id = ?";
+  const value = [id];
+
+  db.query(sql, value, (err, result) => {
+    if (err) {
+      console.error("Error retrieving users:", err);
+      res.status(500).json({ error: "Error retrieving users" });
+    } else if (result.length === 0) {
+      res.status(404).json({ error: "user not found" });
+    } else {
+      res.status(200).json(result);
+    }
+  });
+});
+
+
+app.get('/download/insurance/:pdfId', (req, res) => {
+  const pdfId = req.params.pdfId;
+
+  // Query the database to retrieve the PDF data
+  const sql = 'SELECT insurance FROM documents WHERE user_id = ?';
+
+  db.query(sql, [pdfId], (err, result) => {
+    if (err) {
+      console.error('Error querying the database:', err);
+      res.status(500).json({ error: 'Error retrieving PDF' });
+      return;
+    }
+
+    if (result.length === 0) {
+      res.status(404).json({ error: 'PDF not found' });
+      return;
+    }
+
+    // Set the appropriate response headers for the PDF file
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', `attachment; filename="downloaded.pdf"`);
+
+    console.log(result[0]);
+    // Send the PDF data to the client for download
+    res.end(result[0].insurance, 'binary');
+  });
+});
+
+app.get('/download/driving_license/:pdfId', (req, res) => {
+  const pdfId = req.params.pdfId;
+
+  // Query the database to retrieve the PDF data
+  const sql = 'SELECT driving_license FROM documents WHERE user_id = ?';
+
+  db.query(sql, [pdfId], (err, result) => {
+    if (err) {
+      console.error('Error querying the database:', err);
+      res.status(500).json({ error: 'Error retrieving PDF' });
+      return;
+    }
+
+    if (result.length === 0) {
+      res.status(404).json({ error: 'PDF not found' });
+      return;
+    }
+
+    // Set the appropriate response headers for the PDF file
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', `attachment; filename="downloaded.pdf"`);
+
+    console.log(result[0]);
+    // Send the PDF data to the client for download
+    res.end(result[0].driving_license, 'binary');
+  });
+});
+
+app.get('/download/pollution_certificate/:pdfId', (req, res) => {
+  const pdfId = req.params.pdfId;
+
+  // Query the database to retrieve the PDF data
+  const sql = 'SELECT pollution_certificate FROM documents WHERE user_id = ?';
+
+  db.query(sql, [pdfId], (err, result) => {
+    if (err) {
+      console.error('Error querying the database:', err);
+      res.status(500).json({ error: 'Error retrieving PDF' });
+      return;
+    }
+
+    if (result.length === 0) {
+      res.status(404).json({ error: 'PDF not found' });
+      return;
+    }
+
+    // Set the appropriate response headers for the PDF file
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', `attachment; filename="downloaded.pdf"`);
+
+    console.log(result[0]);
+    // Send the PDF data to the client for download
+    res.end(result[0].pollution_certificate, 'binary');
+  });
+});
+
+
+
+
+
 // app.post('/login', async (req, res) => {
 //   const { email, password } = req.body;
 
@@ -240,7 +346,7 @@ app.post(
 app.get("/pdf/:pdfId", (req, res) => {
   const pdfId = req.params.pdfId;
 
-  const sql = "SELECT data FROM pdfs WHERE id = ?";
+  const sql = "SELECT insurance FROM documents WHERE id = ?";
   const values = [pdfId];
 
   pool.query(sql, values, (err, result) => {
@@ -256,13 +362,14 @@ app.get("/pdf/:pdfId", (req, res) => {
     }
   });
 });
+
 app.get("/viewpdf/:id", async (req, res) => {
   try {
     const pdfId = req.params.id;
 
     const connection = await pool.getConnection();
     const [rows] = await connection.query(
-      "SELECT name, data FROM pdfs WHERE id = ?",
+      "SELECT name, data FROM documents WHERE id = ?",
       [pdfId]
     );
     connection.release();

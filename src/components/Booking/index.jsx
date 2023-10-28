@@ -51,6 +51,8 @@ import { Link } from 'react-router-dom';
 
 function Booking() {
  
+  const id =localStorage.getItem('userid');
+  console.log(id);
 
   return (
     <div className="content">
@@ -60,7 +62,7 @@ function Booking() {
               <div className="head">
                 <div>
                   <h4> Welcome Ayana</h4>
-                  <p className="heading"><Link to="/driverprofile">
+                  <p className="heading"><Link to={`/driverprofile/${id}`}>
                Manage your profile
            </Link></p>
                 </div>

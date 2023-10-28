@@ -17,6 +17,7 @@ import Booking from './components/Booking';
 import BookingHist from './components/BookingHist';
 import Rating from './components/Rating';
 import DriverDashboard from './pages/DriverDashboard/DriverDashboard';
+import DownloadFile from './pages/DownloadFile/DownloadFile';
 function App() {
   
 
@@ -28,11 +29,11 @@ function App() {
       <Route path="/register" element={<Register/>}/>
       <Route path="/login" element ={<Login/>}/>
       
-      <Route path="/driverprofile" element={<DriverProfile/>}/>
+      <Route path="/driverprofile/:id" element={<DriverProfile/>}/>
       <Route path="/taxicars" element={<CarList/>}/>
       <Route path="/driver" element={<DriverDashboard/>}/>
 
-
+      <Route path='/download/:type' element={<DownloadFile/>}/>
      </Routes>
       <Footer/>
     </>
