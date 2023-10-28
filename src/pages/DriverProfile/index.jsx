@@ -40,6 +40,30 @@ function DriverProfile() {
             <p>{el.address}</p>
             <p>{el.email}</p> */}
           </div>
+          <div className="driver-details">
+            <div className="head-flex">
+              <h4 className="v-info">Driver Details</h4>
+              <div>
+                <EditOutlined />
+              </div>
+            </div>
+            <div className="flex">
+              <div className="titles">
+                <p>First Name</p>
+                <p>Last Name</p>
+                <p>Address</p>
+                <p>Email</p>
+                <p>Phone </p>
+              </div>
+              <div className="dr-d">
+                <p>{el.firstName}</p>
+                <p>{el.lastName}</p>
+                <p>{el.address}</p>
+                <p>{el.email}</p>
+                <p>{el.phone}</p>
+              </div>
+            </div>
+          </div>
 
           <div className="car-details">
             <div className="head-flex">
@@ -65,6 +89,7 @@ function DriverProfile() {
               </div>
             </div>
           </div>
+          <div className="card2">
           <div className="acc-details">
             <div className="head-flex">
               <h4 className="v-info">Account Information</h4>
@@ -85,6 +110,7 @@ function DriverProfile() {
               </div>
             </div>
           </div>
+          </div>
         </div>
       </>
     );
@@ -93,7 +119,7 @@ function DriverProfile() {
     <p>Loading data...</p>
   )}
 
-      <div>
+      <div className="certi">
         <div className="card">
           <h6>
             Certificates{" "}
