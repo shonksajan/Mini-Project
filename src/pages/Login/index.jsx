@@ -5,7 +5,7 @@ import './login.css'
 import { useNavigate , Link} from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
-const App = () => {
+const Login = () => {
   const [error,setError] = useState(false);
   const nav = useNavigate();
   const onFinish = async(values) => {
@@ -96,4 +96,4 @@ const App = () => {
     </div>
   );
 };
-export default App;
+export default Login;

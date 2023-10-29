@@ -61,7 +61,7 @@ function Booking() {
             <div className="info">
               <div className="head">
                 <div>
-                  <h4> Welcome Ayana</h4>
+                  <h4> Welcome</h4>
                   <p className="heading"><Link to={`/driverprofile/${id}`}>
                Manage your profile
            </Link></p>
