@@ -19,7 +19,7 @@ const navLinks = [
   },
 
   {
-    path: "/Taxi",
+    path: "/taxicars",
     display: "Taxicars",
   },
   {

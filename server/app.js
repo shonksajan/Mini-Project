@@ -27,7 +27,7 @@ const pool = mysql.createPool({
   port: "8080",
   user: "root",
   password: "ayana",
-  database: "car_rent",
+  database: "gorent",
 });
 
 const db = mysql2.createConnection({
@@ -35,7 +35,7 @@ const db = mysql2.createConnection({
   port: "8080",
   user: "root",
   password: "ayana",
-  database: "car_rent",
+  database: "gorent",
 });
 
 app.use(express.json());
@@ -77,7 +77,7 @@ app.post('/login', async (req, res) => {
 
   //   // Query the database to find a user with the provided email and password
   //   const [results] = await connection.query(
-  //     'SELECT * FROM users WHERE email = ? AND password = ?',
+  //     'SELECT * FROM taxi_driver WHERE email = ? AND password = ?',
   //     [email, password]
   //   );
 
@@ -143,7 +143,7 @@ app.post(
     try {
      
       const userInsertSql = `
-        INSERT INTO users (firstName, lastName, phone, address, email, password, carName, carModel, seats, licensePlate, chassisNumber, accountNumber, accountName, ifscCode)
+        INSERT INTO taxi_driver (firstName, lastName, phone, address, email, password, carName, carModel, seats, licensePlate, chassisNumber, accountNumber, accountName, ifscCode)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)
       `;
       const userInsertValues = [
@@ -207,13 +207,13 @@ app.post(
 
 app.get('/api/driver/:id', (req, res) => {
   const id = req.params['id'];
-  const sql = "SELECT * FROM users WHERE id = ?";
+  const sql = "SELECT * FROM taxi_driver WHERE id = ?";
   const value = [id];
 
   db.query(sql, value, (err, result) => {
     if (err) {
-      console.error("Error retrieving users:", err);
-      res.status(500).json({ error: "Error retrieving users" });
+      console.error("Error retrieving taxi_driver:", err);
+      res.status(500).json({ error: "Error retrieving taxi_driver" });
     } else if (result.length === 0) {
       res.status(404).json({ error: "user not found" });
     } else {
@@ -441,9 +441,9 @@ app.post("/api/get", async (req, res) => {
     // Use the pool to acquire a connection
     const connection = await pool.getConnection();
 
-    // Query the database to fetch data from the "users" table
+    // Query the database to fetch data from the "taxi_driver" table
     const [rows, fields] = await connection.execute(
-      'SELECT * FROM users where email = ? and password = ?',
+      'SELECT * FROM taxi_driver where email = ? and password = ?',
       [username, password]
     );
 

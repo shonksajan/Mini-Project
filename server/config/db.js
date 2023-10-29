@@ -4,7 +4,7 @@ host: "localhost",
 port:"8080",
 user: "root",
 password: "ayana",
-database:"car_rent" 
+database:"gorent" 
 })
 
 module.exports = db;
