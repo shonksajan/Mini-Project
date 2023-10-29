@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './signin.css';
 import { useNavigate } from 'react-router-dom';
-
+import axios from 'axios'
 function Signin() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -29,9 +29,9 @@ function Signin() {
   };
 
   const handleSignIn = (e) => {
-    e.preventDefault(); // Prevent the form from submitting
+    e.preventDefault(); 
 
-    // Basic form validation
+   
     let valid = true;
     const newErrors = { ...errors };
 
@@ -52,6 +52,9 @@ function Signin() {
     if (!formData.email || !formData.email.trim()) {
       valid = false;
       newErrors.email = 'Email is required';
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(formData.email)) {
+      valid = false;
+      newErrors.email = 'Invalid email format';
     } else {
       newErrors.email = '';
     }
@@ -59,6 +62,9 @@ function Signin() {
     if (!formData.password || !formData.password.trim()) {
       valid = false;
       newErrors.password = 'Password is required';
+    } else if (formData.password.length !== 8) {
+      valid = false;
+      newErrors.password = 'Password must be exactly 8 characters';
     } else {
       newErrors.password = '';
     }
@@ -75,9 +81,7 @@ function Signin() {
       return;
     }
 
-    // Handle sign-in logic here (e.g., API request)
-
-    // Clear form data on successful sign-in
+   
     setFormData({
       firstName: '',
       lastName: '',
@@ -86,13 +90,17 @@ function Signin() {
       confirmPassword: '',
     });
 
-    // Redirect to the login page
-    navigate('/');
+    axios.post('http://localhost:8081/signin',formData)
+    .then((res)=>{
+      console.log(res)
+      navigate('/');
+    })
+    
   };
 
   return (
-    <div className='main'>
-        <h1><center>Plan your trip with Us</center></h1>
+    <div className='main-signin'>
+      <h1><center>Plan your trip with Us</center></h1>
       <h2><center>Sign In</center></h2>
       <form onSubmit={handleSignIn}>
         <div>
