@@ -21,24 +21,7 @@ import { EditOutlined } from "@ant-design/icons";
 import { DownloadOutlined } from "@ant-design/icons";
 import { Button } from "antd";
 function DriverHome() {
-  const data = [
-    {
-      id: 16,
-      firstName: "Ayana",
-      lastName: "Sherin",
-      phone: "7736144367",
-      address: "abcde",
-      email: "ayanaasherin@gmail.com",
-      carName: "asds",
-      carModel: "asdsad",
-      seats: 5,
-      licensePlate: "ssad",
-      chassisNumber: "123",
-      accountNumber: "234324",
-      accountName: "errwer",
-      ifscCode: "123213",
-    },
-  ];
+  
 
   return (
     <div className="main">
@@ -60,7 +43,7 @@ function DriverHome() {
                 <div className="head-flex">
                   <h4 className="v-info">Vehicle Information</h4>
                   <div>
-                    <EditOutlined />
+                  <EditOutlined />
                   </div>
                 </div>
                 <div className="flex">

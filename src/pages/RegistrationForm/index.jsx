@@ -56,6 +56,23 @@ function RegistrationForm() {
         setEmailError("");
       }
     }
+    if (name === "password") {
+      
+      if (value.length < 8) {
+        setPasswordError("Password must be at least 8 characters long.");
+      } else {
+      
+        const letterRegex = /[A-Za-z]/;
+        const numberRegex = /[0-9]/;
+        const specialCharRegex = /[!@#$%^&*]/; 
+  
+        if (!letterRegex.test(value) || !numberRegex.test(value) || !specialCharRegex.test(value)) {
+          setPasswordError("Password must include at least one letter, one number, and one special character.");
+        } else {
+          setPasswordError("");
+        }
+      }
+    }
     if (name === "phone") {
      
       const phoneRegex = /^\d{10}$/; 

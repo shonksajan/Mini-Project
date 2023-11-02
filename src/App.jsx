@@ -1,6 +1,7 @@
 import { useState } from 'react'
-/* src/index.css */
+
 import 'bootstrap/dist/css/bootstrap.min.css';
+import EditDriverProfile from './pages/EditDriverProfile';
 
 
 
@@ -32,6 +33,7 @@ function App() {
       <Route path="/driverprofile/:id" element={<DriverProfile/>}/>
       <Route path="/taxicars" element={<CarList/>}/>
       <Route path="/driver" element={<DriverDashboard/>}/>
+      <Route path="/editdriver" element={<EditDriverProfile/>}/>
 
       <Route path='/download/:type' element={<DownloadFile/>}/>
      </Routes>

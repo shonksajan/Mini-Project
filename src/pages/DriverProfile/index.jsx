@@ -44,7 +44,7 @@ function DriverProfile() {
             <div className="head-flex">
               <h4 className="v-info">Driver Details</h4>
               <div>
-                <EditOutlined />
+              <EditOutlined />
               </div>
             </div>
             <div className="flex">
