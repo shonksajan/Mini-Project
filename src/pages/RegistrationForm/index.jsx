@@ -286,6 +286,18 @@ function RegistrationForm() {
                 required
               />
             </div>
+            <div className="form-group">
+              <label>
+                Upload Image:
+                <span className="required">*</span>
+              </label>
+              <input
+                type="file"
+                name="image"
+                onChange={handleChange}
+                required
+              />
+            </div>
           </div>
 
           {/* Uploaded Documents */}
@@ -315,7 +327,7 @@ function RegistrationForm() {
             </div>
             <div className="form-group">
               <label>
-                Driver&quot;s Driving License:
+                Driver's Driving License:
                 <span className="required">*</span>
               </label>
               <input
@@ -325,6 +337,7 @@ function RegistrationForm() {
                 required
               />
             </div>
+            
           </div>
 
           {/* Bank Account Details */}

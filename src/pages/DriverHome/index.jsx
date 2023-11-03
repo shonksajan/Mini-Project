@@ -1,21 +1,4 @@
-// import React, { useState } from 'react';
-//  // Import useHistory to handle redirection
 
-// // ... (your other imports and component code)
-// import { useLocation } from 'react-router-dom';
-
-// function Welcome(){
-//     const location = useLocation();
-//   const name = new URLSearchParams(location.search).get('name');
-
-//     return(
-//         <>
-//          <h1>Welcome, {name}!</h1>
-        
-//         </>
-//     )
-// }
-// export default Welcome
 import "./welcome.css";
 import { EditOutlined } from "@ant-design/icons";
 import { DownloadOutlined } from "@ant-design/icons";

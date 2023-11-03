@@ -5,22 +5,29 @@ import { DownloadOutlined } from "@ant-design/icons";
 import { Button } from "antd";
 import axios from "axios";
 import { useEffect,useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams} from "react-router-dom";
+// import { useHistory } from "react-router-dom";
+
 import { useNavigate } from "react-router-dom";
 function DriverProfile() {
   const nav = useNavigate();
+
   const [data,setData] = useState([]);
   const {id} = useParams(); 
   console.log(id);
   useEffect(()=>{
     axios.get(`http://localhost:5000/api/driver/${id}`).then((response)=>{setData(response.data)});
   },[])
-
+  const editProfile = () => {
+    // Redirect to the EditDriverProfile form when the "Edit Profile" button is clicked
+    nav(`/editdriver/${id}`);
+  };
   const download=(type)=>{
    
     nav(`/download/${type}`);
   }
  
+  console.log(data);
 
 
   return (
@@ -30,12 +37,17 @@ function DriverProfile() {
    data?.map((el) => {
     return (
       <>
+      <div key={el.id}>
         <div className="p-info">
           <div className="pr-details">
             <div>
               <h4>{el.firstName + " " + el.lastName}</h4>
               <p className="dr">Driver</p>
+
+
             </div>
+        
+          
             {/* <p>{el.Phone}</p>
             <p>{el.address}</p>
             <p>{el.email}</p> */}
@@ -44,7 +56,11 @@ function DriverProfile() {
             <div className="head-flex">
               <h4 className="v-info">Driver Details</h4>
               <div>
-              <EditOutlined />
+              <Button
+        type="primary"
+        icon={<EditOutlined />}
+        onClick={editProfile}
+      />
               </div>
             </div>
             <div className="flex">
@@ -69,7 +85,11 @@ function DriverProfile() {
             <div className="head-flex">
               <h4 className="v-info">Vehicle Information</h4>
               <div>
-                <EditOutlined />
+              <Button
+        type="primary"
+        icon={<EditOutlined />}
+        onClick={editProfile}
+      />
               </div>
             </div>
             <div className="flex">
@@ -94,7 +114,11 @@ function DriverProfile() {
             <div className="head-flex">
               <h4 className="v-info">Account Information</h4>
               <div>
-                <EditOutlined />
+              <Button
+        type="primary"
+        icon={<EditOutlined />}
+        onClick={editProfile}
+      />
               </div>
             </div>
             <div className="flex">
@@ -111,6 +135,7 @@ function DriverProfile() {
             </div>
           </div>
           </div>
+        </div>
         </div>
       </>
     );

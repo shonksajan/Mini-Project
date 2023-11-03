@@ -59,6 +59,58 @@ app.post('/login', async (req, res) => {
 });
 
 
+app.post('/api/driver/:id', async (req, res) => {
+  const id = req.params.id;
+  const updatedData = req.body;
+
+  try {
+    const sql = `
+      UPDATE taxi_driver
+      SET firstName = ?,
+          lastName = ?,
+          phone = ?,
+          address = ?,
+          email = ?,
+          carName = ?,
+          carModel = ?,
+          seats = ?,
+          licensePlate = ?,
+          chassisNumber = ?,
+          accountNumber = ?,
+          accountName = ?,
+          ifscCode = ?
+      WHERE id = ?
+    `;
+
+    const values = [
+      updatedData.firstName,
+      updatedData.lastName,
+      updatedData.phone,
+      updatedData.address,
+      updatedData.email,
+      updatedData.carName,
+      updatedData.carModel,
+      updatedData.seats,
+      updatedData.licensePlate,
+      updatedData.chassisNumber,
+      updatedData.accountNumber,
+      updatedData.accountName,
+      updatedData.ifscCode,
+      id,
+    ];
+
+    const [result] = await pool.query(sql, values);
+
+    if (result.affectedRows === 1) {
+      res.status(200).json({ message: 'Driver profile updated successfully' });
+    } else {
+      res.status(404).json({ error: 'Driver not found' });
+    }
+  } catch (error) {
+    console.error('Error updating driver profile:', error);
+    res.status(500).json({ error: 'Error updating driver profile' });
+  }
+});
 
 
 
@@ -107,7 +159,7 @@ app.post(
      
       const userInsertSql = `
         INSERT INTO taxi_driver (firstName, lastName, phone, address, email, password, carName, carModel, seats, licensePlate, chassisNumber, accountNumber, accountName, ifscCode)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
       `;
       const userInsertValues = [
         firstName,
@@ -170,9 +222,8 @@ app.post(
 
 app.get('/api/driver/:id', (req, res) => {
   const id = req.params['id'];
-  const sql = "SELECT * FROM taxi_driver WHERE id = ?";
+  const sql = "SELECT taxi_driver.*, documents.prof FROM taxi_driver INNER JOIN documents ON taxi_driver.id = documents.user_id where taxi_driver.id = ?";
   const value = [id];
-
   db.query(sql, value, (err, result) => {
     if (err) {
       console.error("Error retrieving taxi_driver:", err);
@@ -180,10 +231,29 @@ app.get('/api/driver/:id', (req, res) => {
     } else if (result.length === 0) {
       res.status(404).json({ error: "user not found" });
     } else {
+      console.log(result);
       res.status(200).json(result);
     }
   });
 });
+
+app.get('/api/carlist', (req, res) => {
+  const sql = `
+    SELECT taxi_driver.carModel, taxi_driver.carName, taxi_driver.seats, documents.prof FROM taxi_driver INNER JOIN documents ON taxi_driver.id = documents.user_id`;
+
+  db.query(sql, (err, result) => {
+    if (err) {
+      console.error("Error retrieving taxi_driver:", err);
+      res.status(500).json({ error: "Error retrieving taxi_driver" });
+    } else if (result.length === 0) {
+      res.status(404).json({ error: "user not found" });
+    } else {
+      console.log(result);
+      res.status(200).json(result);
+    }
+  });
+});
+
 
 
 app.get('/download/insurance/:pdfId', (req, res) => {

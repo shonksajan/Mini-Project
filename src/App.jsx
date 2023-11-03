@@ -33,7 +33,7 @@ function App() {
       <Route path="/driverprofile/:id" element={<DriverProfile/>}/>
       <Route path="/taxicars" element={<CarList/>}/>
       <Route path="/driver" element={<DriverDashboard/>}/>
-      <Route path="/editdriver" element={<EditDriverProfile/>}/>
+      <Route path="/editdriver/:id" element={<EditDriverProfile/>}/>
 
       <Route path='/download/:type' element={<DownloadFile/>}/>
      </Routes>
