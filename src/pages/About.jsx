@@ -32,18 +32,11 @@ const About = () => {
                 </h2>
 
                 <p className="section__description">
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                  Eveniet veniam assumenda aperiam accusantium ex autem
-                  perferendis repellendus nostrum delectus. Nemo et dolore est
-                  tempore rem minima adipisci magni dolorum ipsam.
+               Go Rent provides to  Safe ride solutions providers typically conduct thorough background checks on their drivers, including criminal history, driving record, and references.
+               o Rent prioritizes the safety of its passengers and is committed to offering transportation options that are free from harm or danger. It might include measures like well-maintained vehicles, background checks on drivers, and safety features in the vehicles.
                 </p>
 
-                <p className="section__description">
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                  Eveniet veniam assumenda aperiam accusantium ex autem
-                  perferendis repellendus nostrum delectus. Nemo et dolore est
-                  tempore rem minima adipisci magni dolorum ipsam.
-                </p>
+              
 
                 <div className=" d-flex align-items-center gap-3 mt-4">
                   <span className="fs-4">

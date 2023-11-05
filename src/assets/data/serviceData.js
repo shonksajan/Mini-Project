@@ -3,14 +3,14 @@ const serviceData = [
     id: 1,
     title: "City Transfer",
     icon: "ri-map-pin-2-line",
-    desc: "Tempor tempor sadipscing vero lorem sea, invidunt sed et eos ipsum et erat. Dolor ut duo sadipscing lorem. Gubergren gub",
+    desc: " Typically refers to the process of moving or transferring passengers, cargo, or goods within a city or between different locations or points of interest within the city",
   },
 
   {
     id: 2,
     title: "Whole  City Tour",
     icon: "ri-community-line",
-    desc: "Tempor tempor sadipscing vero lorem sea, invidunt sed et eos ipsum et erat. Dolor ut duo sadipscing lorem. Gubergren gub",
+    desc: "A Whole City Tour typically refers to a guided tour that covers all or a significant portion of the major attractions and points of interest within a city.",
   },
 
   {

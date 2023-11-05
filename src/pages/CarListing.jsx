@@ -1,34 +1,63 @@
-import React from "react";
+// CarListing.js
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col } from "reactstrap";
 import Helmet from "../components/Helmet/Helmet";
+import { Link } from "react-router-dom";
 import CommonSection from "../components/UI/CommonSection";
-import CarItem from "../components/UI/CarItem";
-import carData from "../assets/data/carData";
+import axios from "axios";
+import "./car-item.css";
 
 const CarListing = () => {
+  const [cars, setCars] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8081/viewcars")
+      .then((response) => {
+        setCars(response.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setError(err);
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+
   return (
     <Helmet title="Cars">
       <CommonSection title="Car Listing" />
 
-      <section>
+      <section className="car-listing">
         <Container>
           <Row>
-            <Col lg="12">
-              <div className=" d-flex align-items-center gap-3 mb-5">
-                <span className=" d-flex align-items-center gap-2">
-                  <i class="ri-sort-asc"></i> Sort By
-                </span>
-
-                <select>
-                  <option>Select</option>
-                  <option value="low">Low to High</option>
-                  <option value="high">High to Low</option>
-                </select>
-              </div>
-            </Col>
-
-            {carData.map((item) => (
-              <CarItem item={item} key={item.id} />
+            {cars.map((car) => (
+              <Col lg="4" key={car.vId}>
+                <div className="car-card">
+                  <img
+                    className="car-image"
+                    src={`http://localhost:8081/uploads/car/${car.vId}`}
+                    alt={car.carImage}
+                  />
+                  <div className="car-name">{car.vehicleName}</div>
+                  <div>₹{car.price} / Day</div>
+                  <div>{car.modelYear}</div>
+                  <div>{car.Fuel}</div>
+                  <div>{car.vehicleClass}</div>
+                  <Link to="/login">
+                    <button className="book-now-button">Book Now</button>
+                  </Link>
+                </div>
+              </Col>
             ))}
           </Row>
         </Container>

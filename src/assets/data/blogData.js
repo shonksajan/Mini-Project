@@ -34,7 +34,7 @@ const blogData = [
     id: 3,
     title: "The best way to give trip",
     author: "shon",
-    date: "27 oct, 2020",
+    date: "27 oct, 2023",
     time: "9pm",
     imgUrl: img03,
     description:

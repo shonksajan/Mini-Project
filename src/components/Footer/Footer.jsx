@@ -49,7 +49,7 @@ const Footer = () => {
               </h1>
             </div>
             <p className="footer__logo-content">
-            A car rental service is wishing to have a user interface that will allow their customers to view the models, descriptions and prices of different cars available. 
+            A Go Rent service is wishing to have a user interface that will allow their customers to view the models, descriptions and prices of different cars available. 
             The user has the ability to register and log in to the web site and see their rental plan. 
             </p>
           </Col>
